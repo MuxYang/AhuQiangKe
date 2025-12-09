@@ -1,0 +1,28 @@
+[
+  {
+    "course_id": null,
+    "priority": 1,
+    "filter": {
+      "course_name": "示例",
+      "weeks": "1~16",
+      "weekday": 3,
+      "start_unit": 3,
+      "end_unit": 4,
+      "campus": "磬苑校区",
+      "building": "博学北楼A101"
+    }
+  },
+  {
+    "course_id": null,
+    "priority": 2,
+    "filter": {
+      "course_name": "高等数学",
+      "weeks": "1~12",
+      "weekday": 1,
+      "start_unit": 1,
+      "end_unit": 2,
+      "campus": "磬苑校区",
+      "building": "博学北楼A202"
+    }
+  }
+]

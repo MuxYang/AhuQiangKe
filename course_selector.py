@@ -1043,6 +1043,16 @@ def verify_credentials(client: AHUCourseSelector) -> bool:
     return client.get_turn_info() is not None
 
 
+def ensure_valid_credentials(client: AHUCourseSelector) -> bool:
+    """持续验证凭证，失败时提示用户重新输入或选择凭证文件。"""
+    while True:
+        if verify_credentials(client):
+            return True
+        client.ui.error("凭证无效，请重新输入或重新选择凭证文件")
+        if not load_credentials_with_retry(client):
+            return False
+
+
 def parse_target_time(time_str: str) -> Optional[datetime]:
     """
     解析目标时间字符串
@@ -1218,14 +1228,9 @@ def main():
         return
 
     # 初次NTP测试后立即验证凭证，再进入时间输入环节
-    if not verify_credentials(client):
-        ui.error("凭证无效，请重新加载")
-        if not load_credentials_with_retry(client):
-            ui.warn("程序退出")
-            return
-        if not verify_credentials(client):
-            ui.error("凭证仍无效，程序退出")
-            return
+    if not ensure_valid_credentials(client):
+        ui.warn("程序退出")
+        return
     
     # 2. 获取目标时间
     while True:
@@ -1268,17 +1273,10 @@ def main():
         print()
     
     # 验证凭证
-    if not verify_credentials(client):
-        ui.error("凭证验证失败，请重新加载凭证")
-        if not load_credentials_with_retry(client):
-            ui.warn("程序退出")
-            return
-        
-        # 再次验证
-        if not verify_credentials(client):
-            ui.error("凭证依然无效，程序退出")
-            return
-    
+    if not ensure_valid_credentials(client):
+        ui.warn("程序退出")
+        return
+
     ui.success("凭证有效，准备抢课")
 
     # 预热：访问完整课程选择链接，模拟浏览器页面
@@ -1290,7 +1288,10 @@ def main():
     while True:
         targets = load_course_targets(ui=ui)
         if targets:
-            break
+            reuse = ui.question("检测到 list.json 配置，是否直接使用? (y=使用/n=重新搜索)").lower()
+            if reuse == 'y':
+                break
+            targets = []  # 用户希望重新搜索，进入下方交互流程
         ui.warn("未找到课程配置")
         ui.bullet_list([
             "1) 搜索课程并选择",

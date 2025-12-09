@@ -20,3 +20,4 @@ if not defined PWSH_EXE (
 :: 绕过执行策略，调用 run.ps1（保持中文输出）
 "%PWSH_EXE%" -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%SCRIPT_DIR%run.ps1" %*
 exit /b %errorlevel%
+pause
