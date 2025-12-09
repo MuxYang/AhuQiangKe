@@ -34,27 +34,48 @@ class CourseFilter:
 class ConsoleUI:
     """轻量级控制台UI，提供统一的输出风格。"""
 
-    def __init__(self, width: int = 66):
+    def __init__(self, width: int = 66, use_color: Optional[bool] = None):
         self.width = max(50, width)
+        if use_color is None:
+            use_color = sys.stdout.isatty() and os.getenv("NO_COLOR") is None
+        self.use_color = use_color
+        self.palette = {
+            "INFO": "\033[96m",   # bright cyan
+            " OK ": "\033[92m",   # green
+            "WARN": "\033[93m",   # yellow
+            "FAIL": "\033[91m",   # red
+            "STEP": "\033[95m",   # magenta
+            "BANNER": "\033[94m", # blue
+            "RESET": "\033[0m",
+        }
+
+    def _c(self, text: str, key: str) -> str:
+        if not self.use_color:
+            return text
+        code = self.palette.get(key, "")
+        reset = self.palette.get("RESET", "")
+        return f"{code}{text}{reset}" if code else text
 
     # 基础输出
     def line(self, char: str = "-"):
         print(char * self.width)
 
     def divider(self, title: str = ""):
-        print("=" * self.width)
+        print(self._c("=" * self.width, "BANNER"))
         if title:
-            print(title.center(self.width, " "))
-            print("=" * self.width)
+            print(self._c(title.center(self.width, " "), "BANNER"))
+            print(self._c("=" * self.width, "BANNER"))
 
     def banner(self, title: str):
-        print("=" * self.width)
-        print(title.center(self.width, " "))
-        print("=" * self.width)
+        print(self._c("=" * self.width, "BANNER"))
+        print(self._c(title.center(self.width, " "), "BANNER"))
+        print(self._c("=" * self.width, "BANNER"))
 
     # 状态输出
     def _tag(self, label: str, text: str):
-        print(f"[{label}] {text}")
+        tag = f"[{label}]"
+        tag = self._c(tag, label if label in self.palette else "INFO")
+        print(f"{tag} {text}")
 
     def info(self, text: str):
         self._tag("INFO", text)
@@ -69,7 +90,8 @@ class ConsoleUI:
         self._tag("FAIL", text)
 
     def step(self, title: str):
-        print(f"\n-- {title} " + "-" * max(2, self.width - len(title) - 4))
+        prefix = self._c("--", "STEP")
+        print(f"\n{prefix} {title} " + "-" * max(2, self.width - len(title) - 4))
 
     def bullet_list(self, items: Iterable[str]):
         for item in items:
