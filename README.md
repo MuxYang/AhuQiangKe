@@ -4,14 +4,13 @@
 
 ## 快速开始（Windows）
 
-1. 打开 PowerShell，切换到仓库目录：
-   ```pwsh
-   cd d:\Coding\AhuQiangKe
-   ```
-2. 运行一键脚本：
-   ```pwsh
-   pwsh ./run.ps1
-   ```
+方式 A：双击/命令行运行 `run.cmd`（自动使用 `pwsh` 或 `powershell`，并使用 ExecutionPolicy Bypass）。
+
+方式 B：手动 PowerShell：
+```pwsh
+cd d:\Coding\AhuQiangKe
+pwsh ./run.ps1
+```
 
 ## 脚本做了什么
 - 检测本机 `python`，若不存在则从清华镜像选择最新可用版本（按架构优先 amd64）静默安装。
