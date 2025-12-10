@@ -17,12 +17,6 @@
 
 ```bash
 git clone https://github.com/MuxYang/AhuQiangKe.git
-```
-
-或者使用 HTTPS 方式：
-
-```bash
-git clone https://github.com/MuxYang/AhuQiangKe.git
 cd AhuQiangKe
 ```
 

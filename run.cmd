@@ -25,7 +25,7 @@ if %errorlevel% neq 0 (
     if %errorlevel% neq 0 (
         echo [INFO] 检测到需要安装 Python，正在请求管理员权限...
         :: 使用 PowerShell 启动提升权限的新实例
-        powershell -NoProfile -Command "Start-Process -FilePath '%~f0' -Verb RunAs"
+        "%PWSH_EXE%" -NoProfile -Command "Start-Process -FilePath '%~f0' -Verb RunAs"
         exit /b
     )
 )

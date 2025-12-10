@@ -22,10 +22,10 @@ function Test-Administrator {
 }
 
 function Request-AdminPrivilege {
+    param([string]$ScriptPath)
     if (-not (Test-Administrator)) {
         Info "检测到需要管理员权限，正在请求提升..."
-        $scriptPath = $MyInvocation.ScriptName
-        $arguments = "-NoLogo -NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`""
+        $arguments = "-NoLogo -NoProfile -ExecutionPolicy Bypass -File `"$ScriptPath`""
         try {
             Start-Process -FilePath "powershell.exe" -ArgumentList $arguments -Verb RunAs
             exit
@@ -148,7 +148,8 @@ if ($pythonPath) {
 } else {
     Warn "未检测到 Python，开始静默安装"
     # 请求管理员权限（为所有用户安装需要管理员权限）
-    Request-AdminPrivilege
+    $scriptPath = $MyInvocation.MyCommand.Path
+    Request-AdminPrivilege -ScriptPath $scriptPath
     $pythonPath = Install-Python
     Ok "使用新安装的 Python: $pythonPath"
 }
