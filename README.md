@@ -2,6 +2,30 @@
 
 一键运行脚本，自动完成 Python 环境检测/静默安装、pip 镜像配置、依赖安装并启动 `course_selector.py`。
 
+## 下载项目
+
+### 方式一：从 GitHub 网站下载
+
+1. 访问项目地址：https://github.com/MuxYang/AhuQiangKe
+2. 点击绿色的 `Code` 按钮
+3. 选择 `Download ZIP`
+4. 下载完成后解压到本地目录
+
+### 方式二：使用 Git 克隆
+
+如果你已经安装了 Git，可以使用以下命令克隆项目：
+
+```bash
+git clone https://github.com/MuxYang/AhuQiangKe.git
+```
+
+或者使用 HTTPS 方式：
+
+```bash
+git clone https://github.com/MuxYang/AhuQiangKe.git
+cd AhuQiangKe
+```
+
 ## 快速开始（Windows）
 
 方式 A：双击/命令行运行 `run.cmd`（自动使用 `pwsh` 或 `powershell`，并使用 ExecutionPolicy Bypass）。
