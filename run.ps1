@@ -15,6 +15,27 @@ function Warn($m) { Write-Tag "WARN" $m }
 function Ok($m)   { Write-Tag " OK " $m }
 function Fail($m) { Write-Tag "FAIL" $m }
 
+function Test-Administrator {
+    $currentUser = [Security.Principal.WindowsIdentity]::GetCurrent()
+    $principal = New-Object Security.Principal.WindowsPrincipal($currentUser)
+    return $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+}
+
+function Request-AdminPrivilege {
+    if (-not (Test-Administrator)) {
+        Info "检测到需要管理员权限，正在请求提升..."
+        $scriptPath = $MyInvocation.ScriptName
+        $arguments = "-NoLogo -NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`""
+        try {
+            Start-Process -FilePath "powershell.exe" -ArgumentList $arguments -Verb RunAs
+            exit
+        } catch {
+            Fail "无法获取管理员权限: $_"
+            throw "需要管理员权限才能为所有用户安装 Python"
+        }
+    }
+}
+
 function Get-PythonPath {
     try {
         $cmd = Get-Command python -ErrorAction Stop
@@ -126,6 +147,8 @@ if ($pythonPath) {
     Ok "检测到现有 Python: $pythonPath"
 } else {
     Warn "未检测到 Python，开始静默安装"
+    # 请求管理员权限（为所有用户安装需要管理员权限）
+    Request-AdminPrivilege
     $pythonPath = Install-Python
     Ok "使用新安装的 Python: $pythonPath"
 }

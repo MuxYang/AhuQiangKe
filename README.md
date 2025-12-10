@@ -38,6 +38,7 @@ pwsh ./run.ps1
 
 ## 脚本做了什么
 - 检测本机 `python`，若不存在则从清华镜像选择最新可用版本（按架构优先 amd64）静默安装。
+- 当需要安装 Python 时，脚本会自动请求管理员权限（为所有用户安装需要管理员权限）。
 - 自动写入 `%APPDATA%\pip\pip.ini`，使用清华镜像源。
 - 通过 `python -m pip` 安装 `requirements.txt` 中的依赖。
 - 使用检测/安装到的 Python 启动 `course_selector.py`。
