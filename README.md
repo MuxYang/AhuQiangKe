@@ -1,5 +1,6 @@
 # AhuQiangKe
 
+*本项目仅支持在Windows设备上运行*
 一键运行脚本，自动完成 Python 环境检测/静默安装、pip 镜像配置、依赖安装并启动 `course_selector.py`。
 
 ## 获取 token 和学生 ID（浏览器脚本）
@@ -35,9 +36,10 @@ cd AhuQiangKe
 
 方式 A：双击/命令行运行 `run.cmd`（自动使用 `pwsh` 或 `powershell`，并使用 ExecutionPolicy Bypass）。
 
-方式 B：手动 PowerShell：
+方式 B：手动 PowerShell（使用PowerShell Core）：
+您可以在 https://github.com/PowerShell/PowerShell/releases 下载最新版的PowerShell Core。
 ```pwsh
-cd d:\Coding\AhuQiangKe
+cd AhuQiangKe
 pwsh ./run.ps1
 ```
 
