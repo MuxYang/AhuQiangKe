@@ -5,7 +5,7 @@
 ## 获取 token 和学生 ID（浏览器脚本）
 工具脚本需要的 `credentials.json`（示例见仓库同名文件）包含 `token` 与 `student_id` 两个字段。推荐用篡改猴脚本自动抓取：
 
-1. 安装 Tampermonkey（或任意兼容的用户脚本管理器）。
+1. 安装 Tampermonkey 浏览器插件（或任意兼容的用户脚本管理器）。
 2. 在浏览器中新建脚本，粘贴本仓库的 `ahuqk-helper.user.js` 内容后启用（或者在安装了插件后直接拖入浏览器页面）。
 3. 登录 `https://jw.ahu.edu.cn/`，页面右下角会出现一个悬浮按钮。
 4. 登录后点击该按钮，脚本会自动刷新一次页面，读取 cookie 中的 `cs-course-select-student-token` 作为 token，并尝试在页面文本/存储里匹配 6 位数字作为学生 ID。
