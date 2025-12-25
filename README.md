@@ -2,6 +2,17 @@
 
 一键运行脚本，自动完成 Python 环境检测/静默安装、pip 镜像配置、依赖安装并启动 `course_selector.py`。
 
+## 获取 token 和学生 ID（浏览器脚本）
+工具脚本需要的 `credentials.json`（示例见仓库同名文件）包含 `token` 与 `student_id` 两个字段。推荐用篡改猴脚本自动抓取：
+
+1. 安装 Tampermonkey（或任意兼容的用户脚本管理器）。
+2. 在浏览器中新建脚本，粘贴本仓库的 `ahuqk-helper.user.js` 内容后启用（或者在安装了插件后直接拖入浏览器页面）。
+3. 登录 `https://jw.ahu.edu.cn/`，页面右下角会出现一个悬浮按钮。
+4. 登录后点击该按钮，脚本会自动刷新一次页面，读取 cookie 中的 `cs-course-select-student-token` 作为 token，并尝试在页面文本/存储里匹配 6 位数字作为学生 ID。
+5. 页面刷新完成后，浏览器会自动下载 `credentials.json`，直接放到项目根目录即可使用。
+
+若未能匹配到学生 ID，可等待选课平台开放后再点击一次按钮，或自行从页面/接口响应中寻找 6 位学号填入。
+
 ## 快速开始（Windows）
 
 方式 A：双击/命令行运行 `run.cmd`（自动使用 `pwsh` 或 `powershell`，并使用 ExecutionPolicy Bypass）。
