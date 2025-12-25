@@ -13,6 +13,24 @@
 
 若未能匹配到学生 ID，可等待选课平台开放后再点击一次按钮，或自行从页面/接口响应中寻找 6 位学号填入。
 
+## 下载项目
+
+### 方式一：从 GitHub 网站下载
+
+1. 访问项目地址：https://github.com/MuxYang/AhuQiangKe
+2. 点击绿色的 `Code` 按钮
+3. 选择 `Download ZIP`
+4. 下载完成后解压到本地目录
+
+### 方式二：使用 Git 克隆
+
+如果你已经安装了 Git，可以使用以下命令克隆项目：
+
+```bash
+git clone https://github.com/MuxYang/AhuQiangKe.git
+cd AhuQiangKe
+```
+
 ## 快速开始（Windows）
 
 方式 A：双击/命令行运行 `run.cmd`（自动使用 `pwsh` 或 `powershell`，并使用 ExecutionPolicy Bypass）。
@@ -25,6 +43,7 @@ pwsh ./run.ps1
 
 ## 脚本做了什么
 - 检测本机 `python`，若不存在则从清华镜像选择最新可用版本（按架构优先 amd64）静默安装。
+- 当需要安装 Python 时，脚本会自动请求管理员权限（为所有用户安装需要管理员权限）。
 - 自动写入 `%APPDATA%\pip\pip.ini`，使用清华镜像源。
 - 通过 `python -m pip` 安装 `requirements.txt` 中的依赖。
 - 使用检测/安装到的 Python 启动 `course_selector.py`。
