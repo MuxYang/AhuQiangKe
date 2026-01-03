@@ -3,7 +3,7 @@
 // @namespace    https://github.com/
 // @version      1.0.0
 // @description  Export cs-course-select-student-token and student id from jw.ahu.edu.cn after login.
-// @author       Mu Yang
+// @author       MuxYang
 // @match        https://jw.ahu.edu.cn/*
 // @run-at       document-end
 // @grant        none
