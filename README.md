@@ -1,4 +1,4 @@
-# AhuQiangKe
+# AhuCourseSelectCLI
 
 *本项目仅支持在Windows设备上运行*
 一键运行脚本，自动完成 Python 环境检测/静默安装、pip 镜像配置、依赖安装并启动 `course_selector.py`。
